@@ -45,3 +45,62 @@
 
 ### 9. Как контролируются расходы
 Мониторинг токенов на запрос, ограничение максимальной длины контекста и кэширование частых ответов базы знаний.
+
+
+
+
+
+----------
+
+
+
+
+
+
+# 🚀 Production-Ready AI Customer Support Agent
+
+An enterprise-grade autonomous customer support agent for online stores featuring RAG support, CRM-API integration, and a secure error-handling system.
+
+## 📋 Table of Contents
+1. [Business Problem](#1-business-problem)
+2. [Architecture](#2-architecture)
+3. [APIs and Services Used](#3-apis-and-services-used)
+4. [RAG Implementation](#4-rag-implementation)
+5. [Agent Tools](#5-agent-tools)
+6. [Error Handling](#6-error-handling)
+7. [Security and Environments](#7-security-and-environments)
+8. [Monitoring and Metrics](#8-monitoring-and-metrics)
+9. [Pre-Production Checklist](#9-pre-production-checklist)
+
+---
+
+### 1. Business Problem
+The company spends a significant amount of time answering routine customer questions ("Where is my order?", "How do I return an item?", "How long does delivery take?"). The agent automates up to 80% of standard inquiries 24/7.
+
+### 2. Architecture
+The system is divided into layers: Chat Trigger ➔ AI Agent Router ➔ Tools (RAG / CRM API) ➔ Guardrails & Verification ➔ Final Response.
+
+### 3. APIs and Services Used
+* OpenAI / Groq LLM API (for natural language processing).
+* Online store CRM API (for checking order statuses via order_id).
+
+### 4. RAG Implementation
+Uses vector search over a local knowledge base located in the knowledge_base/ folder (delivery, return, payment, and warranty policies). Factual data is extracted directly from documents to prevent model hallucinations.
+
+### 5. Agent Tools
+* Search Knowledge Base — searches company regulations and policies.
+* Get Order Status — retrieves order status by ID from the CRM.
+
+### 6. Error Handling
+* Automatic exception catching for external API failures (OpenAI / CRM).
+* Graceful fallback responses when data is missing or connection issues occur.
+
+### 7. Security and Environments
+The project is split into environments: Development (locally with mock data), Staging (test environment with API sandbox), and Production (live server). Secrets are stored in secure environment variables.
+
+### 8. Security Measures Implemented
+* Principle of Least Privilege: The CRM token has Read-Only access permissions.
+* Prevention of unauthorized exposure of personal data and strict secret filtering.
+
+### 9. Cost Control
+Per-request token monitoring, context window length limitation, and caching of frequent knowledge base responses.
